@@ -1,0 +1,7 @@
+- spec adaptrerized,
+- more macros,
+- added BuildRequires rules,
+- COPYING removed from %doc (License field says anything what is neccessary),
+- cleanups and cosmetics.
+
+Spec file written for PLD by glen <glen@delfi.ee>
