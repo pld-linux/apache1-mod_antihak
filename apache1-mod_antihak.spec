@@ -45,7 +45,7 @@ cd src
 cd src
 
 rm -f tools/missing
-libtoolize --copy --force
+%{__libtoolize}
 aclocal
 %{__autoconf}
 %{__automake}
