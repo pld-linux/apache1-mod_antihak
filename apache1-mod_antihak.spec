@@ -1,3 +1,4 @@
+%define 	apxs	/usr/sbin/apxs
 Summary:	Antihak module for Apache
 Summary(pl):	Modu³ antihak dla Apache
 Name:		apache-mod_antihak
@@ -5,8 +6,20 @@ Version:	0.3.1beta
 Release:	2
 License:	GPL
 Group:		Networking/Daemons
+Group(cs):	Sí»ové/Démoni
+Group(da):	Netværks/Dæmoner
 Group(de):	Netzwerkwesen/Server
+Group(es):	Red/Servidores
+Group(fr):	Réseau/Serveurs
+Group(is):	Net/Púkar
+Group(it):	Rete/Demoni
+Group(no):	Nettverks/Daemoner
 Group(pl):	Sieciowe/Serwery
+Group(pt):	Rede/Servidores
+Group(ru):	óÅÔØ/äÅÍÏÎÙ
+Group(sl):	Omre¾ni/Stre¾niki
+Group(sv):	Nätverk/Demoner
+Group(uk):	íÅÒÅÖÁ/äÅÍÏÎÉ
 Source0:	ftp://ftp.sourceforge.net/pub/sourceforge/apantihak/mod_antihak-0.3.1-beta.tar.gz
 Patch0:		mod_antihak-iptables.patch
 Patch1:		mod_antihak-am.patch
@@ -15,9 +28,11 @@ BuildRequires:	autoconf
 BuildRequires:	apache(EAPI)-devel
 BuildRequires:	libtool
 BuildRequires:	mysql-devel
+BuildRequires:	%{apxs}
 Requires:	apache(EAPI) >= 1.3.1
 Requires:	iptables
 Requires:	sudo
+Prereq:		%{_sbindir}/apxs
 Prereq:		grep
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -52,7 +67,7 @@ automake -a -c
 %configure \
 	CC=%{__cc} \
 	CFLAGS="%{rpmcflags} -I/usr/include/mysql" \
-	APACHE_APXS=/usr/sbin/apxs \
+	APACHE_APXS=%{apxs} \
 	--with-mysql
 
 %{__make}
