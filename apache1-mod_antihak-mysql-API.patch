@@ -1,0 +1,11 @@
+--- ./reset_stats/reset_stats.c~	2001-10-11 10:00:29.000000000 +0200
++++ ./reset_stats/reset_stats.c	2005-02-10 17:45:40.000000000 +0200
+@@ -42,7 +42,7 @@
+     return "mysql_init";
+   }
+ 
+-  if( !mysql_connect( server, "localhost", STATS_USER, STATS_PASSWD ) )
++  if (!mysql_real_connect(server, "localhost", STATS_USER, STATS_PASSWD, NULL, MYSQL_PORT, NULL, 0))
+   {
+     result = "mysql_connect";
+     goto end_app;
