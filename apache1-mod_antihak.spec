@@ -73,7 +73,7 @@ if [ `fgrep "http ALL= NOPASSWD: /sbin/iptables" /etc/sudoers | wc -l` = 0 ]; th
 	echo "http ALL= NOPASSWD: /sbin/iptables" >> /etc/sudoers
 fi
 
-%{_sbindir}/apxs -e -a -n antihak %{_libexecdir}/mod_antihak.so 1>&2
+%{apxs} -e -a -n antihak %{_libexecdir}/mod_antihak.so 1>&2
 if [ -f /var/lock/subsys/httpd ]; then
 	/etc/rc.d/init.d/httpd restart 1>&2
 else
@@ -89,7 +89,7 @@ if [ "$1" = "0" ]; then
 		mv -f /etc/sudoers.rpmnew-antihak /etc/sudoers
 	fi
 
-	%{_sbindir}/apxs -e -A -n antihak %{_libexecdir}/mod_antihak.so 1>&2
+	%{apxs} -e -A -n antihak %{_libexecdir}/mod_antihak.so 1>&2
 	if [ -f /var/lock/subsys/httpd ]; then
 		/etc/rc.d/init.d/httpd restart 1>&2
 	fi
