@@ -8,6 +8,7 @@ Release:	3
 License:	GPL
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/apantihak/mod_antihak-%{tar_ver}.tar.gz
+# Source0-md5:	38f22f5b5662e8dd7318c42fa96fb083
 Patch0:		mod_antihak-iptables.patch
 Patch1:		mod_antihak-am.patch
 BuildRequires:	automake
