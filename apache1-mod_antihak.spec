@@ -5,7 +5,7 @@ Summary(pl):	Modu³ antihak dla Apache
 Name:		apache1-mod_%{mod_name}
 %define		tar_ver	0.3.1-beta
 Version:	0.3.1beta
-Release:	3.2
+Release:	3.3
 License:	GPL
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/apantihak/mod_antihak-%{tar_ver}.tar.gz
@@ -87,7 +87,7 @@ else
 	echo "Run \"/etc/rc.d/init.d/apache start\" to start apache HTTP daemon."
 fi
 
-%preun
+%postun
 if [ "$1" = "0" ]; then
 	if grep -qF "^http ALL= NOPASSWD: /sbin/iptables" /etc/sudoers ; then
 		sed -i -e '/^http ALL= NOPASSWD: /sbin/iptables$/d' /etc/sudoers
