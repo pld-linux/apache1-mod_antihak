@@ -16,11 +16,13 @@ BuildRequires:	apache(EAPI)-devel
 BuildRequires:	libtool
 BuildRequires:	mysql-devel
 BuildRequires:	%{apxs}
+Requires(post,preun):	%{apxs}
+Requires(post,preun):	grep
+Requires(post,preun):	sudo
+Requires(preun):	fileutils
 Requires:	apache(EAPI) >= 1.3.1
 Requires:	iptables
 Requires:	sudo
-Prereq:		%{_sbindir}/apxs
-Prereq:		grep
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define         _libexecdir     %{_libdir}/apache
@@ -67,8 +69,11 @@ cd src
 
 install mod_antihak/mod_antihak.so $RPM_BUILD_ROOT%{_libexecdir}
 
+%clean
+rm -rf $RPM_BUILD_ROOT
+
 %post
-if [ `fgrep "http ALL= NOPASSWD: /sbin/iptables" /etc/sudoers | wc -l` = 0 ]; then
+if ! grep -qF "http ALL= NOPASSWD: /sbin/iptables" ; then
 	echo "http ALL= NOPASSWD: /sbin/iptables" >> /etc/sudoers
 fi
 
@@ -81,8 +86,8 @@ fi
 
 %preun
 if [ "$1" = "0" ]; then
-	if [ `fgrep "http ALL= NOPASSWD: /sbin/iptables" /etc/sudoers | wc -l` != 0 ]
-	then
+	if grep -qF "http ALL= NOPASSWD: /sbin/iptables" /etc/sudoers ; then
+		umask 227
 		grep -v '^http ALL= NOPASSWD: /sbin/iptables$' /etc/sudoers \
 			> /etc/sudoers.rpmnew-antihak
 		mv -f /etc/sudoers.rpmnew-antihak /etc/sudoers
@@ -93,9 +98,6 @@ if [ "$1" = "0" ]; then
 		/etc/rc.d/init.d/httpd restart 1>&2
 	fi
 fi
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
