@@ -1,4 +1,5 @@
 Summary:	Antihak module for Apache
+Summary(pl):	Modu³ antihak dla Apache
 Name:		apache-mod_antihak
 Version:	0.3.1beta
 Release:	2
@@ -6,7 +7,7 @@ License:	GPL
 Group:		Networking/Daemons
 Group(de):	Netzwerkwesen/Server
 Group(pl):	Sieciowe/Serwery
-Source0:	http://prdownloads.sourceforge.net/apantihak/mod_antihak-0.3.1-beta.tar.gz
+Source0:	ftp://ftp.sourceforge.net/pub/sourceforge/apantihak/mod_antihak-0.3.1-beta.tar.gz
 Patch0:		mod_antihak-iptables.patch
 Patch1:		mod_antihak-am.patch
 BuildRequires:	automake
@@ -17,6 +18,7 @@ BuildRequires:	mysql-devel
 Requires:	apache(EAPI) >= 1.3.1
 Requires:	iptables
 Requires:	sudo
+Prereq:		grep
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define         _libexecdir     %{_libdir}/apache
@@ -26,6 +28,11 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 mod_antihak is an Apache Module designed to eliminate the CodeRed and
 Nimda worm's network bandwidth consumption. We're working to make it
 as easy as writing a line of text to add more worms! :)
+
+%description -l pl
+mod_antihak to modu³ Apache s³u¿±cy do eliminowania zapychania sieci
+przez robaki CodeRed i Nimda. Ponadto trwaj± prace nad umo¿liwieniem
+³atwego dodawania obs³ugi kolejnych robaków.
 
 %prep
 %setup -q -n mod_antihak-0.3.1-beta
@@ -44,7 +51,7 @@ automake -a -c
 
 %configure \
 	CC=%{__cc} \
-	CFLAGS="${CFLAGS:-%optflags} -I/usr/include/mysql" \
+	CFLAGS="%{rpmcflags} -I/usr/include/mysql" \
 	APACHE_APXS=/usr/sbin/apxs \
 	--with-mysql
 
@@ -76,7 +83,9 @@ fi
 if [ "$1" = "0" ]; then
 	if [ `fgrep "http ALL= NOPASSWD: /sbin/iptables" /etc/sudoers | wc -l` != 0 ]
 	then
-		perl -pi -e "s|http ALL= NOPASSWD: /sbin/iptables\n||" /etc/sudoers
+		grep -v '^http ALL= NOPASSWD: /sbin/iptables$' /etc/sudoers \
+			> /etc/sudoers.rpmnew-antihak
+		mv -f /etc/sudoers.rpmnew-antihak /etc/sudoers
 	fi
 
 	%{_sbindir}/apxs -e -A -n antihak %{_libexecdir}/mod_antihak.so 1>&2
