@@ -2,11 +2,12 @@
 Summary:	Antihak module for Apache
 Summary(pl):	Modu³ antihak dla Apache
 Name:		apache-mod_antihak
+%define		tar_ver	0.3.1-beta
 Version:	0.3.1beta
 Release:	3
 License:	GPL
 Group:		Networking/Daemons
-Source0:	ftp://ftp.sourceforge.net/pub/sourceforge/apantihak/mod_antihak-%{version}.tar.gz
+Source0:	ftp://ftp.sourceforge.net/pub/sourceforge/apantihak/mod_antihak-%{tar_ver}.tar.gz
 Patch0:		mod_antihak-iptables.patch
 Patch1:		mod_antihak-am.patch
 BuildRequires:	automake
