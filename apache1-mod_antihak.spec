@@ -47,8 +47,8 @@ cd src
 rm -f tools/missing
 libtoolize --copy --force
 aclocal
-autoconf
-automake -a -c -f
+%{__autoconf}
+%{__automake}
 
 %configure \
 	CC=%{__cc} \
