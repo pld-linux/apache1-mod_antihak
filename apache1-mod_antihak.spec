@@ -66,8 +66,6 @@ cd src
 
 install mod_antihak/mod_antihak.so $RPM_BUILD_ROOT%{_libexecdir}
 
-gzip -9nf AUTHORS INSTALL ChangeLog NEWS TODO
-
 %post
 if [ `fgrep "http ALL= NOPASSWD: /sbin/iptables" /etc/sudoers | wc -l` = 0 ]; then
 	echo "http ALL= NOPASSWD: /sbin/iptables" >> /etc/sudoers
@@ -100,5 +98,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc src/*.gz
+%doc src/{AUTHORS,INSTALL,ChangeLog,NEWS,TODO}
 %attr(755,root,root) %{_libexecdir}/*
