@@ -3,7 +3,7 @@ Summary:	Antihak module for Apache
 Summary(pl):	Modu³ antihak dla Apache
 Name:		apache-mod_antihak
 Version:	0.3.1beta
-Release:	2
+Release:	3
 License:	GPL
 Group:		Networking/Daemons
 Group(cs):	Sí»ové/Démoni
