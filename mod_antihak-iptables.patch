@@ -1,0 +1,31 @@
+--- mod_antihak/mod_antihak.c.orig	Tue Nov 20 03:59:29 2001
++++ mod_antihak/mod_antihak.c	Tue Nov 20 03:59:46 2001
+@@ -50,7 +50,7 @@
+ #include <mysql.h>
+ #endif
+ 
+-#define IPCHAINS_PATH "/sbin/ipchains"
++#define IPCHAINS_PATH "/sbin/iptables"
+ #define SUDO_PATH "/usr/bin/sudo"
+ 
+ typedef struct hackentry
+@@ -179,9 +179,8 @@
+ int antihak_block_ip( request_rec *r )
+ {
+     char *argv;
+-    const char *str_fmt = "%s %s -A input -s %s -d %s 80 -p tcp -j REJECT";
++    const char *str_fmt = "%s %s -A INPUT -s %s -p tcp --dport 80 -j REJECT";
+     register int fmt_len = ( strlen( r->connection->remote_ip ) +
+-                             strlen( r->connection->local_ip ) +
+                              strlen( SUDO_PATH ) +
+                              strlen( IPCHAINS_PATH ) +
+                              strlen( str_fmt ) - 7 );
+@@ -198,7 +197,7 @@
+     return 0;
+   }
+ 
+-  sprintf( argv, str_fmt, SUDO_PATH, IPCHAINS_PATH, r->connection->remote_ip, r->connection->local_ip );
++  sprintf( argv, str_fmt, SUDO_PATH, IPCHAINS_PATH, r->connection->remote_ip );
+ 	
+   //
+   // XXXX: Find a replacement for this. execve is not good enough.
