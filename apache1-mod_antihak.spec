@@ -6,8 +6,8 @@ License:	GPL
 Group:		Networking/Daemons
 Group(de):	Netzwerkwesen/Server
 Group(pl):	Sieciowe/Serwery
-Source0:	http://prdownloads.sourceforge.net/apantihak/mod_antihak-0.3.1-beta.tar.bz2
-Patch0:		mod_antihak-iptables.patch.bz2
+Source0:	http://prdownloads.sourceforge.net/apantihak/mod_antihak-0.3.1-beta.tar.gz
+Patch0:		mod_antihak-iptables.patch
 Patch1:		mod_antihak-am.patch
 BuildRequires:	automake
 BuildRequires:	autoconf
