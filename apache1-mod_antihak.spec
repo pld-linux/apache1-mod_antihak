@@ -14,12 +14,12 @@ Patch0:		%{name}-iptables.patch
 Patch1:		%{name}-am.patch
 Patch2:		%{name}-mysql-API.patch
 URL:		http://sourceforge.net/projects/apantihak/
-BuildRequires:	automake
-BuildRequires:	autoconf
+BuildRequires:	%{apxs}
 BuildRequires:	apache1-devel >= 1.3.33-2
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	mysql-devel
-BuildRequires:	%{apxs}
 Requires(post,preun):	grep
 Requires(preun):	sed >= 4.0
 Requires:	apache1 >= 1.3.33-2
@@ -101,5 +101,5 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS INSTALL ChangeLog NEWS TODO
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/conf.d/*_mod_%{mod_name}.conf
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/conf.d/*_mod_%{mod_name}.conf
 %attr(755,root,root) %{_pkglibdir}/*
