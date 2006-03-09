@@ -55,7 +55,7 @@ rm -f tools/missing
 %{__automake}
 
 %configure \
-	CC=%{__cc} \
+	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} -I/usr/include/mysql" \
 	APACHE_APXS=%{apxs} \
 	--with-mysql
