@@ -1,9 +1,9 @@
 %define apxs	/usr/sbin/apxs1
 %define	mod_name	antihak
+%define		tar_ver	0.3.1-beta
 Summary:	Antihak module for Apache
 Summary(pl):	Modu³ antihak dla Apache
 Name:		apache1-mod_%{mod_name}
-%define		tar_ver	0.3.1-beta
 Version:	0.3.1beta
 Release:	3.3
 License:	GPL
@@ -20,12 +20,13 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	mysql-devel
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	grep
 Requires(preun):	sed >= 4.0
 Requires:	apache1 >= 1.3.33-2
 Requires:	iptables
 Requires:	sudo
-Obsoletes:	apache-mod_%{mod_name} <= %{version}
+Obsoletes:	apache-mod_antihak <= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_pkglibdir	%(%{apxs} -q LIBEXECDIR 2>/dev/null)
@@ -80,22 +81,14 @@ if ! grep -qF "http ALL= NOPASSWD: /sbin/iptables" ; then
 	echo "%{mod_name}: appropriate (commented out) line added to /etc/sudoers;"
 	echo "%{mod_name}: be sure to uncomment it if you want this module to work."
 fi
-
-if [ -f /var/lock/subsys/apache ]; then
-	/etc/rc.d/init.d/apache restart 1>&2
-else
-	echo "Run \"/etc/rc.d/init.d/apache start\" to start apache HTTP daemon."
-fi
+%service -q apache restart
 
 %postun
 if [ "$1" = "0" ]; then
 	if grep -qF "^http ALL= NOPASSWD: /sbin/iptables" /etc/sudoers ; then
 		sed -i -e '/^http ALL= NOPASSWD: /sbin/iptables$/d' /etc/sudoers
 	fi
-
-	if [ -f /var/lock/subsys/apache ]; then
-		/etc/rc.d/init.d/apache restart 1>&2
-	fi
+	%service -q apache restart
 fi
 
 %files
