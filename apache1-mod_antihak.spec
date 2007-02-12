@@ -2,7 +2,7 @@
 %define	mod_name	antihak
 %define		tar_ver	0.3.1-beta
 Summary:	Antihak module for Apache
-Summary(pl.UTF-8):   Moduł antihak dla Apache
+Summary(pl.UTF-8):	Moduł antihak dla Apache
 Name:		apache1-mod_%{mod_name}
 Version:	0.3.1beta
 Release:	3.3
