@@ -2,7 +2,7 @@
 %define	mod_name	antihak
 %define		tar_ver	0.3.1-beta
 Summary:	Antihak module for Apache
-Summary(pl):	Modu≥ antihak dla Apache
+Summary(pl.UTF-8):   Modu≈Ç antihak dla Apache
 Name:		apache1-mod_%{mod_name}
 Version:	0.3.1beta
 Release:	3.3
@@ -37,10 +37,10 @@ mod_antihak is an Apache Module designed to eliminate the CodeRed and
 Nimda worm's network bandwidth consumption. We're working to make it
 as easy as writing a line of text to add more worms! :)
 
-%description -l pl
-mod_antihak to modu≥ Apache s≥uø±cy do eliminowania zapychania sieci
-przez robaki CodeRed i Nimda. Ponadto trwaj± prace nad umoøliwieniem
-≥atwego dodawania obs≥ugi kolejnych robakÛw.
+%description -l pl.UTF-8
+mod_antihak to modu≈Ç Apache s≈Çu≈ºƒÖcy do eliminowania zapychania sieci
+przez robaki CodeRed i Nimda. Ponadto trwajƒÖ prace nad umo≈ºliwieniem
+≈Çatwego dodawania obs≈Çugi kolejnych robak√≥w.
 
 %prep
 %setup -q -n mod_antihak-0.3.1-beta/src
